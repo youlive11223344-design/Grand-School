@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Admin panel — Grand xususiy maktabi</title>
+<link rel="icon" type="image/png" href="images/favicon.png">
+<script>
+try{var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.dataset.theme=t}catch(e){}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+body{background:var(--bg2);min-height:100vh}
+.top{background:var(--navy);padding:14px 0}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.top .logo{font:700 1.3rem var(--serif);color:#fff;text-decoration:none}
+.top .logo b{color:var(--gold)}
+.top .logo small{font:700 .75rem var(--sans);color:var(--gold2);margin-left:8px;letter-spacing:.08em;text-transform:uppercase}
+.top .right{display:flex;gap:14px;align-items:center;color:#defcee;font-size:.9rem}
+.top .right a,.top .right button{color:#defcee;text-decoration:none;background:none;border:0;font:500 .9rem var(--sans);cursor:pointer}
+.top .right a:hover,.top .right button:hover{color:var(--gold2)}
+.pg{padding:28px 0 72px}
+.stats2{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:26px}
+.sc{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px}
+.sc b{display:block;font:700 2rem var(--serif);color:var(--head)}
+.sc span{color:var(--mute);font-size:.85rem}
+.tabs{flex-wrap:wrap}
+.pane{padding:0}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.toolbar input,.toolbar select{padding:11px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--card);color:var(--text);font:500 .95rem var(--sans)}
+.toolbar input{flex:1;min-width:200px}
+.toolbar input:focus,.toolbar select:focus{outline:none;border-color:var(--gold)}
+.btn.sm{padding:10px 20px;font-size:.9rem}
+.tw{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:820px}
+th{text-align:left;font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:var(--mute);padding:14px 16px;border-bottom:1px solid var(--border)}
+td{padding:12px 16px;border-bottom:1px solid var(--border);font-size:.92rem;vertical-align:middle}
+tr:last-child td{border-bottom:0}
+.who{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--head)}
+.pav{width:36px;height:36px;border-radius:50%;background:var(--chip);color:var(--accent);display:grid;place-items:center;font:700 .85rem var(--sans);overflow:hidden;flex:none;border:2px solid var(--gold)}
+.pav img{width:100%;height:100%;object-fit:cover;display:block}
+.pill{display:inline-block;padding:3px 10px;border-radius:999px;font-size:.75rem;font-weight:700;background:var(--chip);color:var(--accent)}
+.pill.ok{background:rgba(46,158,91,.15);color:#2e9e5b}
+.pill.bad{background:rgba(214,69,69,.15);color:#d64545}
+.pill.warn{background:rgba(186,117,23,.18);color:#BA7517}
+.ac{display:flex;gap:6px;flex-wrap:wrap}
+.empty{padding:36px;text-align:center;color:var(--mute);grid-column:1/-1}
+.cards .t .mini{margin-top:14px}
+.cards .t .ac .mini{margin-top:0}
+.t.pend{border-color:#BA7517}
+.af{background:var(--card);border:1px solid var(--border);border-left:6px solid var(--gold);border-radius:20px;padding:24px;display:grid;gap:12px;max-width:720px;margin-bottom:24px}
+.af h3{font-size:1.25rem;color:var(--head)}
+.af input[type=text],.af textarea{width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font:500 .95rem var(--sans)}
+.af input[type=file]{color:var(--mute);font-size:.9rem}
+.af textarea{min-height:90px;resize:vertical}
+.af input:focus,.af textarea:focus{outline:none;border-color:var(--gold)}
+.af .btn{justify-self:start}
+.af .lg{display:grid;gap:8px;padding:14px;border:1px solid var(--border);border-radius:14px}
+.af .lg b{font-size:.85rem;color:var(--head)}
+.af .row2{display:flex;gap:10px;flex-wrap:wrap}
+.avrow{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.avrow .av{margin:0}
+.msg{min-height:1.3em;font-size:.88rem;color:#d64545}
+.msg.ok{color:#2e9e5b}
+.thumb{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:12px;display:block;margin-bottom:12px}
+.t.app.new{border-color:var(--gold)}
+.t.app .row{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap}
+.t.app a{color:var(--accent);font-weight:700;text-decoration:none}
+.t.app select{padding:6px 10px;border-radius:10px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font:600 .82rem var(--sans)}
+.gl{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.gl .gi{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:12px}
+.gl .gi img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;display:block}
+.gl .gi p{margin:8px 0 0;font-size:.88rem}
+.gl .gi .mini{margin-top:10px}
+#deny{max-width:520px;margin:12vh auto;text-align:center;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px}
+#deny h1{font-size:1.6rem;color:var(--head);margin-bottom:10px}
+#deny code{display:block;margin:14px 0;padding:10px;border-radius:10px;background:var(--chip);color:var(--accent);word-break:break-all;font-size:.85rem}
+#load{padding:80px;text-align:center;color:var(--mute)}
+</style>
+</head>
+<body>
+
+<div id="load">Yuklanmoqda…</div>
+
+<div id="deny" hidden>
+  <h1>Ruxsat yo‘q</h1>
+  <p class="lead" style="margin:0 auto 6px">Bu sahifa faqat administratorlar uchun.</p>
+  <p style="color:var(--mute);font-size:.88rem">Agar siz sayt egasi bo‘lsangiz, quyidagi UID ni Firestore'dagi <b>admins</b> to‘plamiga hujjat ID sifatida qo‘shing:</p>
+  <code id="uid"></code>
+  <a class="btn gold sm" href="index.html">Saytga qaytish</a>
+</div>
+
+<div id="app" hidden>
+  <header class="top"><div class="wrap">
+    <a class="logo" href="index.html"><img src="images/logo.png" alt="Grand School logotipi" class="logo-img"><span>Grand<b>.</b><small>Admin</small></span></a>
+    <div class="right">
+      <span id="who"></span>
+      <a href="index.html">Sayt</a>
+      <button id="logout" type="button">Chiqish</button>
+    </div>
+  </div></header>
+
+  <main class="wrap pg">
+    <div class="stats2" id="stats"></div>
+
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-t="users">Foydalanuvchilar</button>
+      <button class="tab" role="tab" aria-selected="false" data-t="teachers" id="tabTeachers">O‘qituvchilar</button>
+      <button class="tab" role="tab" aria-selected="false" data-t="apps" id="tabApps">Arizalar</button>
+      <button class="tab" role="tab" aria-selected="false" data-t="news">Yangiliklar</button>
+      <button class="tab" role="tab" aria-selected="false" data-t="gallery">Galereya</button>
+      <button class="tab" role="tab" aria-selected="false" data-t="projects">Loyihalar</button>
+    </div>
+
+    <!-- Foydalanuvchilar -->
+    <section class="pane" data-p="users">
+      <div class="toolbar">
+        <input type="text" id="q" placeholder="Ism, email yoki telefon bo‘yicha qidirish…">
+        <select id="rf">
+          <option value="">Barcha rollar</option>
+          <option value="teacher">O‘qituvchilar</option>
+          <option value="student">O‘quvchilar</option>
+        </select>
+        <button class="btn line sm" id="refresh" type="button">Yangilash</button>
+        <button class="btn gold sm" id="csv" type="button">Excel (CSV)</button>
+      </div>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Foydalanuvchi</th><th>Rol</th><th>Aloqa</th><th>Usul</th><th>Sana</th><th>Holat</th><th>Amallar</th></tr></thead>
+          <tbody id="tb"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- O'qituvchilar -->
+    <section class="pane" data-p="teachers" hidden>
+      <div class="af" id="seedBox" hidden>
+        <h3>Kod ichidagi o‘qituvchilarni bazaga ko‘chirish</h3>
+        <p style="font-size:.9rem;color:var(--mute)">Saytda oldin kod ichida yozilgan 4 ta o‘qituvchi bor edi. Bir tugma bilan ularni bazaga ko‘chiring: shundan keyin hammasini shu yerdan tahrirlaysiz yoki o‘chirasiz.</p>
+        <button class="btn gold sm" id="seed" type="button">4 ta o‘qituvchini ko‘chirish</button>
+        <div class="msg" id="sm" role="status"></div>
+      </div>
+
+      <form class="af" id="tf" novalidate>
+        <h3 id="tfTitle">Yangi o‘qituvchi qo‘shish</h3>
+        <input type="text" id="tn" maxlength="60" placeholder="Ism va familiya">
+        <div class="avrow">
+          <div class="av" id="tav"></div>
+          <input type="file" id="tfile" accept="image/*">
+          <button class="mini" id="trm" type="button" hidden>Rasmni olib tashlash</button>
+        </div>
+        <div class="lg">
+          <b>O‘zbekcha (majburiy)</b>
+          <input type="text" id="r-uz" maxlength="80" placeholder="Fan va tajriba (masalan: Matematika, 5 yil)">
+          <textarea id="b-uz" maxlength="200" placeholder="Qisqacha tavsif"></textarea>
+        </div>
+        <div class="lg">
+          <b>Ruscha (ixtiyoriy)</b>
+          <input type="text" id="r-ru" maxlength="80" placeholder="Предмет и опыт">
+          <textarea id="b-ru" maxlength="200" placeholder="Краткое описание"></textarea>
+        </div>
+        <div class="lg">
+          <b>Inglizcha (ixtiyoriy)</b>
+          <input type="text" id="r-en" maxlength="80" placeholder="Subject and experience">
+          <textarea id="b-en" maxlength="200" placeholder="Short description"></textarea>
+        </div>
+        <div class="row2">
+          <button class="btn gold sm" type="submit">Saqlash</button>
+          <button class="btn line sm" id="tcancel" type="button" hidden>Bekor qilish</button>
+        </div>
+        <div class="msg" id="tm" role="status"></div>
+      </form>
+
+      <div class="cards" id="tcards"></div>
+    </section>
+
+    <!-- Qabul arizalari -->
+    <section class="pane" data-p="apps" hidden>
+      <div class="toolbar">
+        <select id="af">
+          <option value="">Barcha arizalar</option>
+          <option value="new">Yangi</option>
+          <option value="seen">Ko‘rildi</option>
+          <option value="done">Bog‘lanildi</option>
+        </select>
+        <button class="btn gold sm" id="csvApps" type="button">Excel (CSV)</button>
+      </div>
+      <div class="cards" id="appList"></div>
+    </section>
+
+    <!-- Yangiliklar -->
+    <section class="pane" data-p="news" hidden>
+      <form class="af" id="nf" novalidate>
+        <h3>Yangi yangilik qo‘shish</h3>
+        <input type="text" id="nt" maxlength="120" placeholder="Sarlavha">
+        <textarea id="nb" maxlength="2000" placeholder="Matn"></textarea>
+        <label style="font-size:.85rem;color:var(--mute)">Rasm (ixtiyoriy)<br><input type="file" id="ni" accept="image/*"></label>
+        <button class="btn gold sm" type="submit">E’lon qilish</button>
+        <div class="msg" id="nm" role="status"></div>
+      </form>
+      <div class="cards" id="newsList"></div>
+    </section>
+
+    <!-- Galereya -->
+    <section class="pane" data-p="gallery" hidden>
+      <form class="af" id="gf" novalidate>
+        <h3>Galereyaga rasm qo‘shish</h3>
+        <input type="file" id="gi" accept="image/*">
+        <input type="text" id="gc" maxlength="80" placeholder="Rasm tagidagi yozuv (masalan: Bitiruv kuni)">
+        <button class="btn gold sm" type="submit">Qo‘shish</button>
+        <div class="msg" id="gm" role="status"></div>
+      </form>
+      <div class="gl" id="galList"></div>
+    </section>
+
+    <section class="pane" data-p="projects" hidden><div class="cards" id="pcards"></div></section>
+  </main>
+</div>
+
+<script type="module" src="admin.js"></script>
+</body>
+</html>
