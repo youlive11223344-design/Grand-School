@@ -14,7 +14,7 @@ const SCHOOL = {
 const MAP_EMBED = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d619.6711137612483!2d68.76960876683343!3d40.49644391831609!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38b2070045b69d51%3A0x8d59fccba0c81565!2sLider%20o'quv%20Markazi!5e0!3m2!1suz!2s!4v1792160020943!5m2!1suz!2s";
 
 // 🎬 2) BOSH SAHIFA VIDEOSI
-const HERO_VIDEO = "videos/animatsiya.mp4";
+const HERO_VIDEO = "videos/logo animatsiya.mp4";  // mp4 fayl yo'li yoki YouTube video ID yozing (masalan: "3hM6AXRFLro")
 const HERO_POSTER = "";
 
 // 🖼️ 3) GALEREYA RASMLARI (yozuvlari i18n.js ichida: 'gal.caps', xuddi shu tartibda)
